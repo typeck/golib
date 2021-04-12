@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+	"unsafe"
 )
 
-
+//字符转换
 func TestStrconv(t *testing.T) {
 	// ParseInt 将字符串转换为 int 类型
 	// s：要转换的字符串
@@ -18,4 +19,17 @@ func TestStrconv(t *testing.T) {
 	fmt.Println(res, err)
 	res, err = strconv.ParseInt("0b1111", 0, 32)
 	fmt.Println(res, err)
+}
+
+//数组操作（go中尽量不要用数组）
+func TestArry(t *testing.T) {
+	var a = [2]int{1,2}
+	fmt.Printf("%x\n", unsafe.Pointer(&a))
+	//数组是深拷贝，（和c数组指针传递不一样）
+	arryOp(a)
+	fmt.Println("a[1]=", a[1])
+}
+func arryOp(a [2]int) {
+	fmt.Printf("%x\n", unsafe.Pointer(&a))
+	a[1] = -1
 }
