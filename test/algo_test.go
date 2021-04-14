@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"testing"
 	"time"
+	"github.com/typeck/golib/entity"
 )
 
 func TestSort(t *testing.T) {
@@ -54,7 +55,7 @@ func partition(args []int, l, r int) int {
 
 func TestRand(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
-	fmt.Println(GetRandom(&ListNode{Val: 1, Next: &ListNode{Val: 2}}))
+	fmt.Println(GetRandom(&entity.ListNode{Val: 1, Next: &entity.ListNode{Val: 2}}))
 }
 // 蓄水池抽样算法
 
@@ -69,7 +70,7 @@ func TestRand(t *testing.T) {
 // https://zhuanlan.zhihu.com/p/119329875
 
 // leetcode 382
-func GetRandom(head *ListNode) int {
+func GetRandom(head *entity.ListNode) int {
 	p := head
 	i := 1
 	var res int
