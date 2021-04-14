@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"database/sql/driver"
 	"encoding/csv"
-	"github.com/unknwon/com"
+	"io"
 	"os"
+
+	"github.com/unknwon/com"
 )
 
 //ReadCsv Read all rows from csv
@@ -56,4 +58,20 @@ func ToStrSlice(src []interface{})[]string {
 		res[i] = com.ToStr(v)
 	}
 	return res
+}
+
+
+func WriteFile(filename string, data []byte) error {
+	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+	if err != nil {
+		return err
+	}
+	n, err := f.Write(data)
+	if err == nil && n < len(data) {
+		err = io.ErrShortWrite
+	}
+	if err1 := f.Close(); err == nil {
+		err = err1
+	}
+	return err
 }
