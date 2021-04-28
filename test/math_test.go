@@ -42,3 +42,27 @@ func pow(x float64, n int) float64 {
 		return x * pow(x, n-1)
 	}
 }
+
+func TestPrintNums(t *testing.T) {
+	fmt.Println(printNums(3))
+}
+
+
+func printNums(n int) []string {
+	var s []byte
+	var res []string
+	dfs(&s, &res, n)
+	return res
+}
+//剑指 Offer 17. 打印从1到最大的n位数, dfs全排列解法
+func dfs(s *[]byte, res *[]string, k int) {
+	if len(*s) == k {
+		*res = append(*res, string(*s))
+		return
+	}
+	for i := 0; i < 10; i++ {
+		*s = append(*s, '0' + byte(i))
+		dfs(s, res, k)
+		*s = (*s)[:len(*s)-1]
+	}
+}
